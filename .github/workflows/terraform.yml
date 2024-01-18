@@ -1,0 +1,34 @@
+name: Terraform Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 0.15.0
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Validate Terraform Configuration
+      run: terraform validate
+
+    - name: Plan Terraform Changes
+      run: terraform plan
+
+    - name: Apply Terraform Changes 
+      run: terraform apply -auto-approve
+
+    - name: Destroy Terraform Resources 
+      run: terraform destroy -auto-approve
